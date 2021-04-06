@@ -172,8 +172,7 @@ function Clickable() {
 		textAlign(CENTER, CENTER);
 		textSize(this.textSize);
 		textFont(this.textFont);
-		text(this.text, this.x, this.y, this.width, this.height);
-		//Update the text auto swap line.
+		text(this.text, this.x + this.width / 2, this.y + this.height / 2);
 		if (mouseX >= this.x && mouseY >= this.y
 			&& mouseX < this.x + this.width && mouseY < this.y + this.height) {
 			cl_lastHovered = this;
@@ -196,6 +195,9 @@ class ClickableManager {
 		this.allocatorTable = loadTable(allocatorFilename, 'csv', 'header');
 	}
 
+	getClickableArray() {
+		return this.clickableArray;
+	}
 	// expects as .csv file with the format as outlined in the readme file
 	setup() {
 		// For each row, allocate a clickable object
@@ -211,7 +213,7 @@ class ClickableManager {
 			// IF YOU GET AN ERROR, you probably have the incorrect headers information on the CSV file
 			// especially check the case
 			this.clickableArray[i].id = parseInt(this.allocatorTable.getString(i, 'ID'));
-			this.clickableArray[i].name = parseInt(this.allocatorTable.getString(i, 'Name'));
+			this.clickableArray[i].name = this.allocatorTable.getString(i, 'Name');
 			this.clickableArray[i].x = parseInt(this.allocatorTable.getString(i, 'x'));
 			this.clickableArray[i].y = parseInt(this.allocatorTable.getString(i, 'y'));
 			this.clickableArray[i].text = this.allocatorTable.getString(i, 'Text')
@@ -225,5 +227,15 @@ class ClickableManager {
 		for( let i = 0; i < this.clickableArray.length; i++ ) {
 			this.clickableArray[i].draw();
 		}
+	}
+
+	// given a column name and cell, will get the String value associated with it
+	getAttribute(rowNum,attStr) {
+		// return empty string if we are out of bounds
+		if( rowNum < 0 || rowNum >= this.allocatorTable.getRowCount()) {
+			return "";
+		}
+		
+		return this.allocatorTable.getString(rowNum, attStr);
 	}
  }

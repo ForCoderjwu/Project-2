@@ -1,230 +1,123 @@
 /***********************************************************************************
-  Project 2
+  MoodyMaze
   by Jiaquan Wu
 ***********************************************************************************/
-var debugScreen;
 
-var title = [];
-var imagearray = [];
-var person = [];
+var adventureManager;
 
-var button_list = [];
-var context;
-var context_index;
+var playerSprite;
+var playerAnimation;
 
-var drawscreen;
-var n;
-var indextrack;
+var Click;
+var clickables;
 
-function preload(){
-  debugScreen = new DebugScreen();
-  debugScreen.print("DebugScreen Success!");
+const playGameIndex = 0;
 
-  title[0] = loadImage("Asset/title.png");
-  title[1] = loadImage('Asset/p5.png')
-  title[2] = loadImage('Asset/BCG.jpg');
-
-  imagearray[0] = loadImage("Asset/house.jpg");
-  imagearray[1] = loadImage('Asset/room.jpg');
-  imagearray[2] = loadImage("Asset/workplace.jpg");
-
-  person[0] = loadImage('Asset/person1.png');
-  person[1] = loadImage('Asset/mom.png');
-
-  context = loadTable("Asset/table/context.csv");
+function preload() {
+  Click = new ClickableManager('Asset/table/clickableLayout.csv');
+  adventureManager = new AdventureManager('Asset/table/adventureStates.csv', 'Asset/table/interactionTable.csv', 'Asset/table/clickableLayout.csv');
 }
 
 function setup() {
   createCanvas(1280, 720);
-  imageMode(CENTER);
-  time = new Timer(2000);
-  indextrack = false;
 
-  drawscreen = initialscreen;
-  // drawscreen = screen1;
+  clickables = Click.setup();
 
-  button_list[0] = new Clickable();
-  button_list[1] = button_create("Button1", 100, height - 300);
-  button_list[2] = button_create("Button2", width - 500, height - 300);
+  playerSprite = createSprite(width/2, height/2, 80, 80);
+  playerSprite.addAnimation('regular', loadAnimation('Asset/sprite/p1.png', 'Asset/sprite/p5.png'));
 
-  n = 0;
-  context_index = 0;
+  adventureManager.setPlayerSprite(playerSprite);
+  adventureManager.setClickableManager(Click);
+  adventureManager.setup();
 }
 
 function draw() {
-  background(0);
-  if (context_index >= context.getRowCount()){
-    push();
-    background(255);
-    textSize(50);
-    textAlign(CENTER);
-    fill(0);
-    text("END OF DEMO", width/2, height/2);
-    pop();
+  adventureManager.draw();
+  Click.draw();
+
+  if( adventureManager.getStateName() !== "Splash" && adventureManager.getStateName() !== "Instructions" ) {
+    
+    moveSprite();
+
+    // this is a function of p5.js, not of this sketch
+    drawSprite(playerSprite);
+  } 
+}
+
+//-------------- YOUR SPRITE MOVEMENT CODE HERE  ---------------//
+function moveSprite() {
+  if(keyIsDown(RIGHT_ARROW))
+    playerSprite.velocity.x = 10;
+  else if(keyIsDown(LEFT_ARROW))
+    playerSprite.velocity.x = -10;
+  else
+    playerSprite.velocity.x = 0;
+
+  if(keyIsDown(DOWN_ARROW))
+    playerSprite.velocity.y = 10;
+  else if(keyIsDown(UP_ARROW))
+    playerSprite.velocity.y = -10;
+  else
+    playerSprite.velocity.y = 0;
+}
+
+class L1_Room extends PNGRoom {
+
+  preload() {
+    this.NPC = createSprite(400, 400, 80, 80);
+    this.NPC.addAnimation('regular', loadAnimation('Asset/sprite/u1.png', 'Asset/sprite/u5.png'));
+
+    this.button = createSprite(width-100, height/2, 40,40);
+    this.button.addImage(loadImage('Asset/button.png'));
   }
 
-  if (context.getString(context_index, 0) === "S1" && n == -1) {
-    drawscreen = screen1;
-    context_index++;
-  } else if (context.getString(context_index, 0) === "S2" || context.getString(context_index, 0) === "S3") {
-    drawscreen = screen2;
-    context_index++;
-  } else if (context.getString(context_index, 0) === "S4"){
-    drawscreen = screen3;
-    context_index++;
+  draw() {
+    super.draw();
+    drawSprite(this.NPC);
+
+    drawSprite(this.button);
+    playerSprite.overlap(this.button, this.levelchange);
   }
 
-  drawscreen();
-
-  // debugScreen.draw();
-  debug();
-}
-
-function initialscreen() {
-  background(0);
-  //timer and system count
-  if (n == 2) {
-    n = 0;
-    drawscreen = menu;
-  }
-  else if (time.expired() && n <= 1) {
-    time.start();
-    n++;
-  }
-  //color and size
-  fill(255);
-  textSize(20);
-
-  //content
-  text("Power By:", width/2 - 300, height/2 -200);
-  image(title[1], width/2 - 200, height/2);  
-  textSize(40);
-  textFont('Georgia');
-  text("& Jiaquan Wu", width/2, height/2);
-
-  //alpha rate(), from timer
-  if(n == 0) fill(0,255 * time.getPercentageRemaining());
-  else if (n == 1) fill(0,255 * time.getPercentageElapsed());
-  rect(0,0,width,height);  
-}
-
-function menu() {
-  //play button create
-  button_list[0].text = "Start";
-  button_list[0].width = 300;
-  button_list[0].height = 70;
-  button_list[0].locate( width - 400, height/2 - 100);
-  button_list[0].textSize = 30;
-  button_list[0].textFont = "Arial";
-  button_list[0].onPress = function() {
-    drawscreen = screen1;
-    indextrack = true;
-    n = -1;
-  };
-  button_list[0].onHover = function () {
-    this.color = "#00FFFF";
-    this.textColor = "#000000";
-  };
-  button_list[0].onOutside = function () {
-    this.color = "#FFFFFF";
-    this.textColor = "#000000";
-  };
-
-  //background and asset
-  fill(255);
-  image(title[2], width/2, height/2, width, height);
-  image(title[0], 400, 141, 800, 262);
-  button_list[0].draw();
-}
-
-function debug() {
-  push();
-  fill(255);
-  textSize(20);
-  text("X: " + mouseX + "   Y: " + mouseY, 20, height - 20);
-  pop();
-}
-
-function basic_screen(name, NPCtext) {
-  //text box
-  push();
-  fill(152,245,255,230);
-  rect( 50, height - 200, width - 100, 180, 20);
-
-  //NPC's name
-  fill(132,112,255);
-  quad(100,height-230, 290,height - 230, 270, height - 180, 80, height - 180);
-  fill(255);
-  textSize(22);
-  text(name, 100, height-195);
-
-  //text
-  fill(255);
-  textSize(30);
-  text(NPCtext, 70, height - 170, width - 120, 180);
-  pop();
-}
-
-screen1 = function() {
-  //background
-  image(imagearray[0], width/2, height/2, width, height);
-  //person
-  image(person[0], width/2 - 300, height/2);
-  //text
-  basic_screen(context.getString(context_index,0), context.getString(context_index,1));
-}
-
-screen2 = function() {
-  //background
-  image(imagearray[1], width/2, height/2, width, height);
-  //person
-  image(person[0], width/2 - 300, height/2);
-  image(person[1], width/2 + 300, height/2);
-  //text
-  if (context.getString(context_index,0) === "S2.1") {
-    indextrack = false;
-    button_list[1].text = "Question about the society";
-    button_list[2].text = "Does't care about the announcement";
-    button_list[1].onPress = function() {
-      context_index = 15;
-      indextrack = true;
-    };
-    button_list[2].onPress = function() {
-      context_index = 20;
-      indextrack = true;
-    };
-    button_list[1].draw();
-    button_list[2].draw();
-  } else if (context.getString(context_index,0) === "S2.2") context_index = 24;
-  else basic_screen(context.getString(context_index,0), context.getString(context_index,1));
-}
-
-function mousePressed() {
-  if(indextrack) {
-    context_index++;
+  levelchange() {
+    adventureManager.changeState("L2");
+    playerSprite.position.x = width/2;
+    playerSprite.position.y = height/2;
   }
 }
 
-function button_create (label, x, y) {
-  let tb  = new Clickable();
-  
-  tb.text = label;
-  
-  // set width + height to image size
-  tb.width = 400;
-  tb.height = 200;
-  tb.textSize = 30;
-  
-  tb.locate( x, y );
-  
-  tb.onHover = function() {
-    this.color = "#00FFFF";
-    this.textColor = "#000000";
-  };
-  tb.onOutside = function () {
-    this.color = "#FFFFFF";
-    this.textColor = "#000000";
-  };
-  
-  return tb;
+class L2_Room extends PNGRoom {
+
+  preload() {
+    this.button = createSprite(width-100, height/2, 40,40);
+    this.button.addImage(loadImage('Asset/button.png'));
+  }
+
+  draw() {
+    super.draw();
+
+    drawSprite(this.button);
+    playerSprite.overlap(this.button, this.levelchange);
+  }
+
+  levelchange() {
+    adventureManager.changeState("L3");
+  }
+}
+
+class Boss_Room extends PNGRoom {
+  preload() {
+    this.NPC =createSprite(200, height/2, 80, 80);
+    this.NPC.addAnimation('regular', loadAnimation('Asset/sprite/u1.png', 'Asset/sprite/u5.png'));
+  }
+
+  draw() {
+    super.draw();
+    drawSprite(this.NPC);
+    playerSprite.overlap(this.NPC, this.die);
+  }
+
+  die() {
+    adventureManager.changeState("House");
+  }
 }
