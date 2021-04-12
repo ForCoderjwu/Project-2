@@ -1,4 +1,6 @@
 CurrentState,KeyTyped,KeyCode,MouseEvent,ClickableName,MapDirection,NextState
+Start,,,mouseReleased,,,Instructions
+Instructions,,,mouseReleased,,,House
 House,,,,,E,Company_down
 Company_down,,,,,W,House
 Company_down,,,,,E,Company_Elevator
