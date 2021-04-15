@@ -4,6 +4,12 @@
 ***********************************************************************************/
 
 var adventureManager;
+var timer;
+var content;
+var go = false; //The mission p/f logo! true for go up, false by go down.
+
+var groupIndex;
+var ina = 0;
 
 var playerSprite;
 var playerAnimation;
@@ -21,6 +27,7 @@ var Enemy = 0;
 
 function preload() {
   Click = new ClickableManager('Asset/table/clickableLayout.csv');
+  content = new Content_Man('Asset/table/npc_content.csv');
   adventureManager = new AdventureManager('Asset/table/adventureStates.csv', 'Asset/table/interactionTable.csv', 'Asset/table/clickableLayout.csv');
   NPC[0] = loadAnimation('Asset/sprite/p0.png', 'Asset/sprite/p4.png');
   NPC[1] = loadAnimation('Asset/sprite/s0.png', 'Asset/sprite/s4.png');
@@ -31,6 +38,10 @@ function preload() {
   logo[1] = loadImage('Asset/coffee.png');
   logo[2] = loadImage('Asset/key.png')
   logo[3] = loadImage('Asset/card.png');
+  logo[4] = loadImage('Asset/flash_drive.png');
+  logo[5] = loadImage('Asset/pass.png');
+  logo[6] = loadImage('Asset/fail.png');
+
 }
 
 function setup() {
@@ -46,9 +57,15 @@ function setup() {
   adventureManager.setup();
 
   setupClickables();
+  content.setup();
 
-  // adventureManager.changeState("L3");
-  // adventureManager.changeState("L2_MAZE4");
+  timer = new Timer(0);
+
+  file[5] = false;//checker for the secrete box, initial false;
+  file[6] = false;//checker for the secrete box, initial false;
+
+  // adventureManager.changeState("L2");
+  // adventureManager.changeState("L2_MAZE2");
 }
 
 function draw() {
@@ -69,6 +86,7 @@ function draw() {
     else if(file[2]) image(logo[2], 120, 70, 50); //key
     
     if(file[3]) image(logo[3], 200, 70); //card
+    if(file[4]) image(logo[4], 200, 100, 100, 30); //flash drive
 
     //States display
     push();
@@ -79,8 +97,22 @@ function draw() {
     pop();
   } 
 
+  if (playerSprite.position.x <= 0 || playerSprite.position.x >= width || 
+    playerSprite.position.y <= 0 || playerSprite.position.y >= height) {
+      groupIndex = 0;
+      ina = 0;
+    }
+
+  if (go) {
+    timer.setTimer(2000);
+    timer.start();
+    go = false;
+  }
+  p_f(true);
+  print(groupIndex);
+  print(ina);
+
   drawDebugInfo();
-  print(index);
 }
 //==================== Some Function =====================
 function drawDebugInfo() {
@@ -98,7 +130,7 @@ function copy_file() {
   if (talktaive[0] == false) file[0] = true;
 }
 
-function drawtextbox(content) {
+function drawtextbox(contents) {
   push();
   fill(0);
   rect(0,height-200,width,200); //textbox
@@ -106,7 +138,7 @@ function drawtextbox(content) {
   fill(255);
   textAlign(CENTER);
   textSize(20);
-  text(content,0,height-100, width, 200);
+  text(contents,width/6,height-150, width-400, 150);
   pop();
 }
 
@@ -180,6 +212,21 @@ function office_door(e) {
   }
 }
 
+function p_f(c) {
+  push();
+  imageMode(CENTER);
+  if (!timer.expired()) {
+    // tint(255,100*timer.getPercentageRemaining()); //This function will lower the frame rate!!!
+    if (c) {
+      image(logo[4],width/2,height/2,400,131);
+    }
+    else {
+      image(logo[5],width/2,height/2,400,131);
+    }
+  }
+  pop();
+}
+
 //==================== Clickable function ======================
 
 function setupClickables() {
@@ -219,6 +266,13 @@ clickableButtonPressed = function() {
       break;
     case 5:
       index = 11;
+      break;
+    case 6:
+      index = 4;
+      break;
+    case 7:
+      index = 16;
+      break;
     default:
       break;
   }
@@ -287,12 +341,16 @@ class L2_Room extends PNGRoom {
     this.NPC2.addAnimation('regular', NPC[2]);
 
     this.e = ele_door_set();
+
+    groupIndex = 0;
+    talktaive[1] = true;
   }
 
   draw() {
     super.draw();
 
     drawSprite(this.NPC2);
+    if (file[6]) playerSprite.overlap(this.NPC2, this.talkable);
 
     drawSprite(this.button);
     if (file[3]) playerSprite.overlap(this.button, this.levelchange); //Only if we have the cards, then the state can change.
@@ -303,6 +361,36 @@ class L2_Room extends PNGRoom {
   levelchange() {
     adventureManager.changeState("L3");
     playerSprite.position.x -= 100;
+  }
+
+  talkable() {
+    if (talktaive[1] == true)
+    {content.ChangeToState('L2');
+    let conversation = content.GroupContent(groupIndex);
+    if (ina < conversation.length) {
+      clickables[0].visible = true;
+      drawtextbox(conversation[ina]);
+      clickables[0].onPress = function temp() {
+        ina++;
+      } 
+    } else if (groupIndex != 0) {
+      talktaive[1] = false;
+    } 
+    else {
+      clickables[6].visible = true;
+      clickables[6].onPress = function temp() {
+        groupIndex = 1;
+        ina = 0;
+        Respect++;
+        file[4] = true;
+      } 
+      clickables[7].visible = true;
+      clickables[7].onPress = function temp() {
+        groupIndex = 2;
+        ina = 0;
+        Enemy++;
+      }
+    }}
   }
 }
 
@@ -328,6 +416,7 @@ class Office_room extends PNGRoom {
 
   talkable() {
     clickables[0].visible = true;
+    clickables[0].onPress = clickableButtonPressed;
     switch (index) {
       case 0:
         drawtextbox("Leader: John, this is important, you need to delivered this file to the boss office in the upper level!");
@@ -370,6 +459,9 @@ class L2M1_room extends PNGRoom {
     this.NPC.addAnimation('regular', NPC[2]);
     this.NPC2 = createSprite(300, 520, 80, 80);
     this.NPC2.addAnimation('regular', NPC[2]);
+
+    groupIndex = 0;
+    talktaive[2] = true;
   }
 
   draw() {
@@ -378,6 +470,36 @@ class L2M1_room extends PNGRoom {
     drawSprite(this.NPC);
     drawSprite(this.NPC2);
     playerSprite.overlap(this.copy, copy_file);
+    playerSprite.overlap(this.NPC, this.talkable);
+  }
+
+  talkable() {
+    if (talktaive[2] == true)
+    {content.ChangeToState('L2M1');
+    let conversation = content.GroupContent(groupIndex);
+    if (ina < conversation.length) {
+      clickables[0].visible = true;
+      drawtextbox(conversation[ina]);
+      clickables[0].onPress = function temp() {
+        ina++;
+      } 
+    } else if (groupIndex != 0) {
+      talktaive[2] = false;
+    } 
+    else {
+      clickables[8].visible = true;
+      clickables[8].onPress = function temp() {
+        groupIndex = 1;
+        ina = 0;
+        Respect++;
+      } 
+      clickables[9].visible = true;
+      clickables[9].onPress = function temp() {
+        groupIndex = 2;
+        ina = 0;
+        Enemy++;
+      }
+    }}
   }
 }
 
@@ -385,11 +507,45 @@ class L2M2_room extends PNGRoom {
   preload() { //NPC with hidden card
     this.NPC = createSprite(1000, 140, 80, 80);
     this.NPC.addAnimation('regular', NPC[2]);
+
+    groupIndex = 0;
+    talktaive[3] = true;
   }
 
   draw() {
     super.draw();
     drawSprite(this.NPC);
+    playerSprite.overlap(this.NPC, this.talkable);
+  }
+
+  talkable() {
+    if (talktaive[3] == true)
+    {content.ChangeToState('L2M2');
+    let conversation = content.GroupContent(groupIndex);
+    if (ina < conversation.length) {
+      clickables[0].visible = true;
+      drawtextbox(conversation[ina]);
+      clickables[0].onPress = function temp() {
+        ina++;
+      } 
+    } else if (groupIndex != 0) {
+      talktaive[3] = false;
+    } 
+    else {
+      clickables[10].visible = true;
+      clickables[10].onPress = function temp() {
+        groupIndex = 1;
+        ina = 0;
+        Respect++;
+        file[5] = true; //checker for the box, if true, we can use the secret key card.
+      } 
+      clickables[11].visible = true;
+      clickables[11].onPress = function temp() {
+        groupIndex = 2;
+        ina = 0;
+        Enemy++;
+      }
+    }}
   }
 }
 
@@ -400,18 +556,59 @@ class L2M4_room extends PNGRoom {
 
     this.NPC = createSprite(510, 350, 80, 80);
     this.NPC.addAnimation('regular', NPC[2]);
+    
+    groupIndex = 0;
+    talktaive[4] = true;
   }
 
   draw() {
     super.draw();
     drawSprite(this.box);
     drawSprite(this.NPC);
-    playerSprite.overlap(this.box, this.card);
+    if (file[5]) playerSprite.overlap(this.box, this.card);
+    if (file[0]) playerSprite.overlap(this.NPC, this.talkable);
   }
 
   card() {
     file[3] = true;
   }
+
+  talkable() {
+    if (talktaive[4] == true) {
+      content.ChangeToState('L2M4');
+      let conversation = content.GroupContent(groupIndex);
+      if (ina < conversation.length) {
+        clickables[0].visible = true;
+        drawtextbox(conversation[ina]);
+        clickables[0].onPress = function temp() {
+          ina++;
+        } 
+      } else if (groupIndex != 0 && file[3] == true) {
+        talktaive[4] = false;
+      } 
+      else {
+        clickables[12].visible = true;
+        clickables[12].onPress = function temp() {
+          groupIndex = 1;
+          ina = 0;
+          file[6] = true;
+        } 
+        clickables[13].visible = true;
+        clickables[13].onPress = function temp() {
+          groupIndex = 2;
+          ina = 0;
+          Enemy++;
+        }
+        if (file[4]) clickables[14].visible = true;
+        clickables[14].onPress = function temp() {
+          groupIndex = 3;
+          ina = 0;
+          file[3] = true;
+          file[4] = false;
+        }
+      }
+    }
+  }  
 }
 
 class L3 extends PNGRoom {
@@ -515,6 +712,7 @@ class Front_room extends PNGRoom {
 
   talkable() {
     clickables[0].visible = true;
+    clickables[0].onPress = clickableButtonPressed;
     switch (index) {
       case 0:
         drawtextbox("Secretary: Who are you? What do you want?");
@@ -582,6 +780,7 @@ class Boss_Room extends PNGRoom {
 
   talkable() {
     clickables[0].visible = true;
+    clickables[0].onPress = clickableButtonPressed;
     switch (index) {
       case 0:
         drawtextbox("John: Mr.Tom, I have something for you!");
@@ -635,3 +834,47 @@ class END_Room extends PNGRoom {
     text(content, width/4, height/4, width/2, height/2);
   }
 }
+
+class Content_Man {
+  constructor(filename) {
+    this.file = loadTable(filename,'csv','header');
+    this.state = [];
+    this.group = [];
+  } 
+  setup() {
+    let statetotal = 0;
+    for (let i = 0; i < this.file.getRowCount(); i++) {
+      let statename = this.file.getString(i, 'State');
+
+      if (statename == '') return 'Not Valid State Name';
+      else if (this.state.indexOf(statename) == -1) {
+        this.state[statetotal] = statename;
+        statetotal++;
+      }
+    }
+  }
+
+  ChangeToState(stateName) {
+    if (this.state.indexOf(stateName) == -1) return 'Not Valid State Name';
+    else this.group = this.file.findRows(stateName,'State');
+    return this.group;
+  }
+
+  GroupContent(groupID) {
+    let content = [];
+    for (let i = 0; i < this.group.length; i++) {
+      if (this.group[i].getNum('Group') == groupID) {
+        content[this.group[i].getNum('Index')] = this.group[i].getString('Content');
+      }
+    }
+    return content;
+  }
+
+  getAllStateName() {
+    return this.state;
+  }
+
+  getS() {
+    return this.group;
+  }
+};

@@ -1,0 +1,69 @@
+﻿State,Group,Index,Content
+L2,0,0,Senior Worker: Everyone in this office seems busy…
+L2,0,1,Senior Worker: But why am I so idle and have nothing to do...
+L2,0,2,"John: Hey, George said you have the flash drive?"
+L2,0,3,"Senior Worker: I have that, but can you answer a question for me?"
+L2,1,0,John: I have time for that.
+L2,1,1,Senior Worker: Do you think this company is a good company to stay for a long time?
+L2,1,2,"John: Why not? I can have a better title and good reputation if I stay in here, and working hard."
+L2,1,3,Senior Worker: That is a completely wrong thought!
+L2,1,4,"Senior Worker: I have the same thought as you do, when I first come to this company."
+L2,1,5,"Senior Worker: I was doing so hard, compelete all the task and having a good reputation around this company."
+L2,1,6,"Senior Worker: But as I getting older, I cannot do the same thing in such a efficient way. Just like you do."
+L2,1,7,"Senior Worker: In last week, I was demotioned by the Business team and transfer to this logistics department."
+L2,1,8,Senior Worker: Can you imagine this? A successful seller become a worker that handle the messy of the company.
+L2,1,9,Senior Worker: And they dont let me do anything in this department. I dont even have a friends on here.
+L2,1,10,"John: Well, if likes you said, you need to talks to the upper levels. Or reported to the union."
+L2,1,11,"Senior Worker: I know what I want to do, Thank you for listening to my complaint. Here is the Flash drive."
+L2,2,0,"John: Sorry, but I dont have timer for that! I got many works to do."
+L2,2,1,Senior Worker: Even a little time for this old man is not neccessary? You will get paid for this!
+L2M1,0,0,Worker1: I need to have some coffee.
+L2M1,0,1,"Worker2: Have you heard that recently, there is a new Asian in our group. He is so serious about his work, I don't even know who he is showing to."
+L2M1,0,2,"Worker1: Yeah, he doesn't look like a person who does a good job. Maybe he is taking break during the work time."
+L2M1,0,3,"Worker1: Or, he has a relative person above us, what a incompetent person."
+L2M1,0,4,"Worker2: Hum, it is better to extinguish some fire from him. Should we play a prank on him? "
+L2M1,0,5,Worker1: Lets talk about it after work??
+L2M1,0,6,John: (Are they talking about me?)
+L2M1,2,0,John: Hello guys! What are you guys talking for?
+L2M1,2,1,Worker1/2: Nothing about it.
+L2M1,2,2,"John: Well, I have recently heard some racially discriminatory remarks, it shouldn’t be yours. "
+L2M1,2,3,Worker1: That is not us. Can you do your own jobs and do not interrupt with us?
+L2M1,2,4,"John: If you guys are not racism, I will keep doing my jobs."
+L2M1,2,5,John: There are many racism discrimination rumor around this office. 
+L2M1,2,6,"John: Maybe I need to mention what I learn from the company rule, and at first. No discrimination between colleagues, it include gender, age and…"
+L2M1,2,7,John: Race
+L2M1,2,8,"Worker1: This is the freedom of speech, I can said what I want."
+L2M1,2,9,"John: Nope, the freedom of speech doesn't mean you can judge some gift for other person. People cannot choose where they born, what race and color they have."
+L2M1,2,10,John: We are all equals.
+L2M1,2,11,"Worker1: OK!OK! (Not helpful, they are still talking about it!!!)"
+L2M1,1,0,John: Stop that racism language!
+L2M1,1,1,"Worker1: Wow, seems the Asian child heard what we talking for."
+L2M1,1,2,"John: I heard it, in fact, if you guys are learning some of the history in this country. You will know this country is made by immigrant."
+L2M1,1,3,John: So stop your sense of superiority that comes from your ancestor.Stop haten Asian.
+L2M1,1,4,Worker2: You cannot change what the society think you are. Just give up to it.
+L2M1,1,5,"John: I will keep doing this, and all Asian will do it, too. And we will stand our position."
+L2M1,1,6,"Worker1/2: We will see it in the future. But now, you got me."
+L2M2,0,0,"John: Hey, do you know where can I find the key card?"
+L2M2,0,1,"Worker: Nope, and don’t ask me. I am doing my project."
+L2M2,1,0,"John: Ok, What is your project like?"
+L2M2,1,1,"Worker: You are in the tech department, so what do you think I am."
+L2M2,1,2,"John: So you must be the programmer for our website… Cool, So what are you writing for?"
+L2M2,1,3,"Worker: New feature that can management our E-platform selling. (Whisper: How? Those block of code is totolly correct, but the system are failling!)"
+L2M2,1,4,"John: That will be good… So, Why this line is missing a semicolon?"
+L2M2,1,5,"Worker: What?!?! That works, thanks a lot bro! "
+L2M2,1,6,"John: You welcome, so did you know where I can find the card to the upper stair?"
+L2M2,1,7,"Worker: I don’t have that, sorry. But I can tell you something about it. All the key card are in the warehouse, and the warehouse are in the room that contains most of the box.(L2M4)"
+L2M2,1,8,"John: Thanks, I will looking for it."
+L2M2,2,0,John: What a weirdo…
+L2M4,0,0,"John: Hey, I am working on the Business Department and want to deliverd a file to the upper level."
+L2M4,0,1,"L2-Leader: You must be the new Asian right? Your math must be very good. HAHA, do me a favor so I will give you the card."
+L2M4,0,2,"John: (Read the Title) Mr.George, it is not funny to use stereotype for other person. Especially for someone just met."
+L2M4,0,3,"George: Don’t be so serious about that, working should be easy and passion about it. So, did you accept that?"
+L2M4,1,0,John: What do you want me to do?
+L2M4,1,1,"George: Easy peasy, there are an important file that contains our storage information in the logistics department."
+L2M4,1,2,"George: I ask them to send those file to me, but seems they forgot about it. Go there are find the file to me."
+L2M4,1,3,John: Sure.
+L2M4,2,0,John: I will not helping someone that use otherone's stereotype as a joke. I will find the card by myself.
+L2M4,2,1,"George: Whatever you want, KungFu master."
+L2M4,3,0,John: Here is the flash drive.
+L2M4,3,1,"George: Very well! Your ability is impressive, here is the card!"

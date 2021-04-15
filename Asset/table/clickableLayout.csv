@@ -5,3 +5,12 @@ ID,Name,State,PNGFilename,Text,x,y,width,height
 3,Front_A1,,,1: Sure,300,200,100,50
 4,Front_A2,,,2: Noway,300,300,100,50
 5,Front_A3,,,3: I got the coffee,300,400,100,50
+6,L2_A1,,,1: Answer,300,300,100,50
+7,L2_A2,,,2: Why? I don't have time for that.,300,500,200,50
+8,L2M1_A1,,,1: Treat them Nicer,300,300,100,50
+9,L2M1_A2,,,2: Told them history,300,400,100,50
+10,L2M2_A1,,,1: Ask detail,300,300,100,50
+11,L2M2_A2,,,2: Don't ask,300,400,100,50
+12,L2M4_A1,,,1: For key card!!!,300,300,100,50
+13,L2M4_A2,,,2: For dignity,300,400,100,50
+14,L2M4_A3,,,3: I got the driver,300,500,100,50
