@@ -4,6 +4,6 @@
 ### Desctibtion
 Create a Social Justice game in p5.js
 
-### Note
-This is the first step of Project 2
-This is the the basic map and concept of the game.
+### Note from 4/15
+Update to the L2 and few office in L3, Main story is complete.
+Still developing.

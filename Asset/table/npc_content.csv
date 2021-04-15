@@ -10,11 +10,10 @@ L2,1,3,Senior Worker: That is a completely wrong thought!
 L2,1,4,"Senior Worker: I have the same thought as you do, when I first come to this company."
 L2,1,5,"Senior Worker: I was doing so hard, compelete all the task and having a good reputation around this company."
 L2,1,6,"Senior Worker: But as I getting older, I cannot do the same thing in such a efficient way. Just like you do."
-L2,1,7,"Senior Worker: In last week, I was demotioned by the Business team and transfer to this logistics department."
-L2,1,8,Senior Worker: Can you imagine this? A successful seller become a worker that handle the messy of the company.
-L2,1,9,Senior Worker: And they dont let me do anything in this department. I dont even have a friends on here.
-L2,1,10,"John: Well, if likes you said, you need to talks to the upper levels. Or reported to the union."
-L2,1,11,"Senior Worker: I know what I want to do, Thank you for listening to my complaint. Here is the Flash drive."
+L2,1,7,"Senior Worker: In last week, I was demotioned by the Business team and transfer to this logistics department. Can you imagine this? A successful seller become a worker that handle the messy of the company."
+L2,1,8,Senior Worker: And they dont let me do anything in this department. I dont even have a friends on here. I think they want me quit this compnay by myself.
+L2,1,9,"John: Well, if likes you said, you need to talks to the upper levels. Or reported to the union."
+L2,1,10,"Senior Worker: I know what I want to do, Thank you for listening to my complaint. Here is the Flash drive."
 L2,2,0,"John: Sorry, but I dont have timer for that! I got many works to do."
 L2,2,1,Senior Worker: Even a little time for this old man is not neccessary? You will get paid for this!
 L2M1,0,0,Worker1: I need to have some coffee.
@@ -67,3 +66,25 @@ L2M4,2,0,John: I will not helping someone that use otherone's stereotype as a jo
 L2M4,2,1,"George: Whatever you want, KungFu master."
 L2M4,3,0,John: Here is the flash drive.
 L2M4,3,1,"George: Very well! Your ability is impressive, here is the card!"
+L3,0,0,"John: Hey, How do you do bro?"
+L3,0,1,"Enemy: Wow, seems our company has a little Asian."
+L3,0,2,John: What did you said?
+L3,0,3,Enemy: Why your eyes are so small? (Squint his eyes) What are you going to do? Mop this floor?
+L3,0,4,"John: Ridiculous, I am leaving. "
+L3,0,5,Enemy: What is on your pocket? Did you want to report me? (Reach out)
+L3,0,6,John: Don’t touch me!
+L3,0,7,"(Your file is been broken, You can have it from the copy machine)"
+L3M2,0,0,John: How are you?
+L3M2,0,1,Harry: Did I know you before? 
+L3M2,0,2,"John: I am sure not. I came from business department, my name is John."
+L3M2,0,3,"Harry: Harry, can you do me a favor?"
+L3M2,0,4,"Harry: I am trying to use the projector in my meeting, but the projector are not working!"
+L3M2,1,0,John: Let me look at it…
+L3M2,1,1,John: The software is correct.. Wire is conneted… Power is good…... Wait a second..
+L3M2,1,2,"John: You are in the wrong channel, you need to switch to the ""Computer mode"""
+L3M2,1,3,"Harry: Oh, that is interesting. Thanks You! "
+L3M2,1,4,John: Let me know if you have more question about it.
+L3M2,2,0,John: Have you try ture it off and on it again?
+L3M2,2,1,Harry: Of course i have...
+L3M2,2,2,John: Then I don’t know how to do it!
+L3M2,2,3,"Harry: Sure, maybe I need to call someone in tech department…"
