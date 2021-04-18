@@ -1,18 +1,22 @@
 ID,Name,State,PNGFilename,Text,x,y,width,height
 0,Next,,,Next,1100,650,100,50
-1,Office_A1,,,1: Yes I can,300,250,100,50
-2,Office_A2,,,2: No I cant,400,250,100,50
-3,Front_A1,,,1: Sure,300,200,100,50
-4,Front_A2,,,2: Noway,300,300,100,50
-5,Front_A3,,,3: I got the coffee,300,400,100,50
-6,L2_A1,,,1: Answer,300,300,100,50
-7,L2_A2,,,2: Why? I don't have time for that.,300,500,200,50
-8,L2M1_A1,,,1: Treat them Nicer,300,300,100,50
-9,L2M1_A2,,,2: Told them history,300,400,100,50
-10,L2M2_A1,,,1: Ask detail,300,300,100,50
-11,L2M2_A2,,,2: Don't ask,300,400,100,50
-12,L2M4_A1,,,1: For key card!!!,300,300,100,50
-13,L2M4_A2,,,2: For dignity,300,400,100,50
-14,L2M4_A3,,,3: I got the driver,300,500,100,50
+1,Office_A1,,,1: Yes I can,400,520,100,50
+2,Office_A2,,,2: No I cant,800,520,100,50
+3,Front_A1,,,1: Sure,300,520,100,50
+4,Front_A2,,,2: Noway,600,520,100,50
+5,Front_A3,,,3: I got the coffee,900,520,100,50
+6,L2_A1,,,1: Answer,400,520,100,50
+7,L2_A2,,,2: Why? I don't have time for that.,800,520,200,50
+8,L2M1_A1,,,1: Treat them Nicer,400,520,100,50
+9,L2M1_A2,,,2: Told them history,800,520,100,50
+10,L2M2_A1,,,1: Ask detail,400,520,100,50
+11,L2M2_A2,,,2: Don't ask,800,520,100,50
+12,L2M4_A1,,,1: For key card!!!,300,520,100,50
+13,L2M4_A2,,,2: For dignity,600,520,100,50
+14,L2M4_A3,,,3: I got the driver,900,520,100,50
 15,L3M2_A1,,,1: Enthusiastic help,400,520,100,50
 16,L3M2_A2,,,2: Indifferent help,800,520,100,50
+17,L3_A1,,,1: It is not their fault,400,520,100,50
+18,L3_A2,,,2: You obey the rule,800,520,100,50
+19,FrontN_A1,,,1: I got time for this,400,520,100,50
+20,FrontN_A2,,,2: Not really,800,520,100,50

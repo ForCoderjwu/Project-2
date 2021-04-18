@@ -66,14 +66,24 @@ L2M4,2,0,John: I will not helping someone that use otherone's stereotype as a jo
 L2M4,2,1,"George: Whatever you want, KungFu master."
 L2M4,3,0,John: Here is the flash drive.
 L2M4,3,1,"George: Very well! Your ability is impressive, here is the card!"
-L3,0,0,"John: Hey, How do you do bro?"
-L3,0,1,"Enemy: Wow, seems our company has a little Asian."
-L3,0,2,John: What did you said?
-L3,0,3,Enemy: Why your eyes are so small? (Squint his eyes) What are you going to do? Mop this floor?
-L3,0,4,"John: Ridiculous, I am leaving. "
-L3,0,5,Enemy: What is on your pocket? Did you want to report me? (Reach out)
-L3,0,6,John: Don’t touch me!
-L3,0,7,"(Your file is been broken, You can have it from the copy machine)"
+L3,0,0,"John: Hey buddy, do you know where is the Boss Office?"
+L3,0,1,"Simon: In the upper left corner, and I recommend you, don't ask any thing about wage."
+L3,0,2,John: Why? Everybody wants a better wage.
+L3,0,3,Simon: Do you think the executives has some kind of discrimination on my education background?
+L3,0,4,"John: What? No, not really, Why?"
+L3,0,5,"Simon: Because I have been working here for a year, what is wrong with a higher salary requirement?"
+L3,0,6,"Simon: I was working so hard in this year, but my salary cannot higher than a college student just graduate."
+L3,0,7,John: How did you know that?
+L3,0,8,"Simon: I want to meet some new blood, and I got it through them."
+L3,1,0,"John: All right, so did you think about your own reasons?"
+L3,1,1,"John: I think the executives has some kind of measurement of everyone's wage, and your work cannot met those requirment."
+L3,1,2,John: That doesn't about what is your education background is.
+L3,1,3,"Simon: But I was working so hard, so I am qualify to have it."
+L3,1,4,"Simon: You will never know it, See You."
+L3,2,0,"John: Well, you cannot talking about the salary around the colleagues."
+L3,2,1,Simon: Does it related to my problem?
+L3,2,2,"John: No, but I want to tell you the wage are privacy for each one, and I will not tell you about my salary."
+L3,2,3,Simon: What kind of person you are? You don’t know what I am thinking about.
 L3M2,0,0,John: How are you?
 L3M2,0,1,Harry: Did I know you before? 
 L3M2,0,2,"John: I am sure not. I came from business department, my name is John."
@@ -88,3 +98,35 @@ L3M2,2,0,John: Have you try ture it off and on it again?
 L3M2,2,1,Harry: Of course i have...
 L3M2,2,2,John: Then I don’t know how to do it!
 L3M2,2,3,"Harry: Sure, maybe I need to call someone in tech department…"
+L3M3,0,0,"John: Hey, How do you do bro?"
+L3M3,0,1,"Enemy: Wow, seems our company has a little Asian."
+L3M3,0,2,John: What did you said?
+L3M3,0,3,Enemy: Why your eyes are so small? (Squint his eyes) What are you going to do? Mop this floor?
+L3M3,0,4,"John: Ridiculous, I am leaving. "
+L3M3,0,5,Enemy: What is on your pocket? Did you want to report me? (Reach out)
+L3M3,0,6,John: Don’t touch me!
+L3M3,0,7,"(Your file is been broken, You can have it from the copy machine)"
+Front,0,0,"John: Hey, do you needs help?"
+Front,0,1,"Tomas: No…In fact, yes, did you have time for me?"
+Front,1,0,John: What do you want me to do?
+Front,1,1,"Tomas: I have a friend before, but for some reason, she move to other department in last week."
+Front,1,2,"Tomas: I want you to talk with her, that I don’t have any gender discrimination language to her."
+Front,1,3,"John: Wow, what do you said to her…"
+Front,1,4,Tomas: It was a project in our department at last month.
+Front,1,5,Tomas: I said she need to take a rest in the first week of this project.
+Front,1,6,Tomas: But she think our team isolated her and take all the achievement without her. 
+Front,1,7,"John: So she think you guys are discriminate her, then she leave this office."
+Front,1,8,"Tomas: However, I just think she are working for a long time, and she needs take a vacation for rest."
+Front,1,9,"John: Ok, so where is she?"
+Front,1,10,Tomas: It is on my right side of the office.
+Front,2,0,"John: If you said so, I don't have time for this."
+Front,2,1,"Tomas: All right, take you time."
+Front,3,0,"John: Hey Selina, did you just move to this department? Tomas asked me to give you a message."
+Front,3,1,Selina: What kind of word does those masculinity people said.
+Front,3,2,"John: He said let you take a break is a goodwill, because you are working for a very long time."
+Front,3,3,"John: And they don’t have any sense of discrimination to you, they just care about you."
+Front,3,4,"Selina: Oh, I think they has some kind of opinion to my gender, because you know, I am the only female in that group."
+Front,3,5,"John: You are thinking too deeply, they are pretty nice to everyone."
+Front,3,6,"Selina: My bad, tell him I will get back tomorrow."
+Front,4,0,"John: Hey Tomas, I told her the truth."
+Front,4,1,"Tomas: Thank you for your help, if you have any question or problem, come and get me."

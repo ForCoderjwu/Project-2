@@ -1,9 +1,18 @@
 /***********************************************************************************
-  MoodyMaze
+  Tough Life : Social Work
   by Jiaquan Wu
-  Virsion: 4/15/21
+  Virsion: 4/18/21
 ------------------------------------------------------------------------------------
-  Note: This is not the final version.
+  Note: 
+  - This game is the toal virsion of social justice game that used by p5.js
+  - This game used a lot of global variable to store NPC is valid or not
+  - There are some development are not full develop yet, like p_f function, but it is 
+  still there.
+  - Some bug in repeatable NPC talk, it can incline the Respect or Enemy by multible 
+  times.
+  - Becuase of the systematic problem and I dont have any clue, playing this game will
+  used lots of system resources, causing system laggy. 
+  - There are some bugs when you cross the states.
 ***********************************************************************************/
 
 var adventureManager;
@@ -21,6 +30,7 @@ var index = 0; //Global Index (Main storyline used!)
 var file = []; //Check array for the logos are in or out.
 var logo = []; //Logos image array.
 var talktaive = []; //Now we have 6 talktaive.
+var front_index = 0;
 
 var Click;
 var clickables;
@@ -41,6 +51,7 @@ function preload() {
   NPC[3] = loadAnimation('Asset/sprite/T0.png', 'Asset/sprite/T7.png');
   NPC[4] = loadAnimation('Asset/sprite/b0.png', 'Asset/sprite/b3.png');
   NPC[5] = loadAnimation('Asset/sprite/v0.png', 'Asset/sprite/v7.png');
+  NPC[6] = loadAnimation('Asset/sprite/r0.png', 'Asset/sprite/r5.png');
 
   //load the require logos.
   logo[0] = loadImage('Asset/file.png');
@@ -77,7 +88,7 @@ function setup() {
 
 //Testing function
   // adventureManager.changeState("L2"); 
-  // adventureManager.changeState("L2_MAZE2");
+  adventureManager.changeState("L3_MAZE3");
 }
 
 function draw() {
@@ -106,6 +117,9 @@ function draw() {
     textAlign(CENTER);
     textSize(20);
     text("Respect: " + Respect + " Enemy: " + Enemy, 130, 50);
+    fill(255,215,0);
+    if (talktaive[0] != false) text ("Main Goal: Go to your Office (L2)", 1000, 50);
+    else text("Main Goal: Deliver file to Boss Office (L3)", 1000, 50);
     pop();
   } 
 
@@ -116,16 +130,16 @@ function draw() {
   } //This will automatic refresh the groupIndex and ina to 0, for the content_Manager used.
 
   //This should be the show up for Mission complete or not, not complete.
-  if (go) {
-    timer.setTimer(2000);
-    timer.start();
-    go = false;
-  }
+  // if (go) {
+  //   timer.setTimer(2000);
+  //   timer.start();
+  //   go = false;
+  // }
   // p_f(true); 
 
   drawDebugInfo(); //Debug for Mouse X and Y
 }
-//==================== Some Function =====================
+//==================== Some Function =====================//
 function drawDebugInfo() {
   push();
 	fill(255);
@@ -206,7 +220,7 @@ function office_door(e) { //Look at the ele_funciton, same thing
 
   drawSprite(e[0]);
   drawSprite(e[1]);
-  if (x<=1 && y <=1 && x >= 0 && y >= 0 && file[2]) {
+  if (x<=1 && y <=1 && x >= 0 && y >= 0 && file[2]) { //Only we have key, the door will open. (But I dont know how to do the collision and program delete)
     if (e[0].position.y <= 0) {
       e[0].setSpeed(0,0);
       e[1].setSpeed(0,0);
@@ -241,7 +255,7 @@ function p_f(c) { //This is the mission compelete logo call out!
   pop();
 }
 
-//==================== Clickable function ======================
+//==================== Clickable function ======================//
 
 function setupClickables() { //Set up the clickables function!
   for( let i = 0; i < clickables.length; i++ ) {
@@ -474,7 +488,7 @@ class L2M1_room extends PNGRoom { //This is the state with two NPC, and Copy mac
     this.NPC = createSprite(240, 520, 80, 80);
     this.NPC.addAnimation('regular', NPC[2]);
     this.NPC2 = createSprite(300, 520, 80, 80);
-    this.NPC2.addAnimation('regular', NPC[2]);
+    this.NPC2.addAnimation('regular', NPC[6]);
 
     groupIndex = 0;
     talktaive[2] = true; //set the talkative to true.
@@ -522,7 +536,7 @@ class L2M1_room extends PNGRoom { //This is the state with two NPC, and Copy mac
 class L2M2_room extends PNGRoom {//NPC with hidden card location clue
   preload() { 
     this.NPC = createSprite(1000, 140, 80, 80);
-    this.NPC.addAnimation('regular', NPC[2]);
+    this.NPC.addAnimation('regular', NPC[5]);
 
     groupIndex = 0;
     talktaive[3] = true; //Set it can be talk
@@ -571,7 +585,7 @@ class L2M4_room extends PNGRoom {//Key from the NPC, task required
     this.box.addImage(loadImage('Asset/b.png'));
 
     this.NPC = createSprite(510, 350, 80, 80);
-    this.NPC.addAnimation('regular', NPC[2]);
+    this.NPC.addAnimation('regular', NPC[4]);
     
     groupIndex = 0;
     talktaive[4] = true; //Can be talkable at first.
@@ -627,10 +641,10 @@ class L2M4_room extends PNGRoom {//Key from the NPC, task required
   }  
 }
 
-class L3 extends PNGRoom { //The one who can distroy your file.
+class L3 extends PNGRoom { //This is education
   preload() {
     this.NPC = createSprite(770, 440, 80, 80);
-    this.NPC.addAnimation('regular', NPC[1]);
+    this.NPC.addAnimation('regular', NPC[2]);
 
     this.button = createSprite(width-40, height/2, 40,40);
     this.button.addImage(loadImage('Asset/button.png'));
@@ -639,6 +653,7 @@ class L3 extends PNGRoom { //The one who can distroy your file.
     this.copy.addImage(loadImage('Asset/copy_machine.png'));
 
     this.e = ele_door_set();
+    talktaive[6] = true;
 
     groupIndex = 0;
   }
@@ -660,17 +675,34 @@ class L3 extends PNGRoom { //The one who can distroy your file.
     playerSprite.position.x -= 100;
   }
 
-  talkable() { //See above, L2_ROOM
-    content.ChangeToState('L3');
-    let conversation = content.GroupContent(groupIndex);
-    if (ina < conversation.length) {
-      clickables[0].visible = true;
-      drawtextbox(conversation[ina]);
-      clickables[0].onPress = function temp() {
-        ina++;
+  talkable() { //SEE ABOVE!!!
+    if (talktaive[6]) {
+      content.ChangeToState('L3');
+      let conversation = content.GroupContent(groupIndex);
+      if (ina < conversation.length) {
+        clickables[0].visible = true;
+        drawtextbox(conversation[ina]);
+        clickables[0].onPress = function temp() {
+          ina++;
+        } 
+      } else if (groupIndex != 0) {
+        talktaive[6] = false;
+      } 
+      else {
+        drawtextbox(''); //draw an empty rect, just like the text box. (TESTING)
+        clickables[17].visible = true;
+        clickables[17].onPress = function temp() {
+          groupIndex = 1;
+          ina = 0;
+          //This NPC will not become Friends.
+        } 
+        clickables[18].visible = true;
+        clickables[18].onPress = function temp() {
+          groupIndex = 2;
+          ina = 0;
+          Enemy++;
+        }
       }
-    } else { //ONLY one group. After conversation you will lost the file.
-      file[0] = false;
     }
   }
 }
@@ -678,7 +710,7 @@ class L3 extends PNGRoom { //The one who can distroy your file.
 class L3M2_room extends PNGRoom { //NPC needs help, with divice used.
   preload() {
     this.NPC = createSprite(820, 270, 80, 80);
-    this.NPC.addAnimation('regular', NPC[1]);
+    this.NPC.addAnimation('regular', NPC[4]);
 
     groupIndex = 0;
     talktaive[5] = true; //This NPC first is talkable - #5
@@ -722,16 +754,34 @@ class L3M2_room extends PNGRoom { //NPC needs help, with divice used.
   }
 }
 
-class L3M3_room extends PNGRoom {
+class L3M3_room extends PNGRoom {  //The one who can distroy your file.
   preload() {
     this.NPC = createSprite(1170, 70, 80, 80);
-    this.NPC.addAnimation('regular', NPC[1]);
+    this.NPC.addAnimation('regular', NPC[5]);
+
+    talktaive[7] = true;
   }
 
   draw() {
     super.draw();
     drawSprite(this.NPC);
-    // playerSprite.overlap(this.NPC, this.die);
+    playerSprite.overlap(this.NPC, this.talkable);
+  }
+
+  talkable() { //See above, L2_ROOM
+    if (talktaive[7] && file[0]) { //if can talk and file is exist
+      content.ChangeToState('L3M3');
+      let conversation = content.GroupContent(groupIndex);
+      if (ina < conversation.length) {
+        clickables[0].visible = true;
+        drawtextbox(conversation[ina]);
+        clickables[0].onPress = function temp() {
+          ina++;
+        }
+      } else { //ONLY one group. After conversation you will lost the file.
+        file[0] = false;
+      }
+    }
   }
 }
 
@@ -752,7 +802,7 @@ class L3M4_room extends PNGRoom {
   }
 }
 
-class Front_room extends PNGRoom { //Old function like the Office_Room, See above.
+class Front_room extends PNGRoom { //The front and two NPC
   preload() {
     index = 0;
     this.s = createSprite(90, 400, 80, 80);
@@ -761,23 +811,37 @@ class Front_room extends PNGRoom { //Old function like the Office_Room, See abov
     this.NPC = createSprite(220, 630, 80, 80);
     this.NPC.addAnimation('regular', NPC[1]);
     this.NPC2 = createSprite(880, 500, 80, 80);
-    this.NPC2.addAnimation('regular', NPC[1]);
+    this.NPC2.addAnimation('regular', NPC[6]);
 
-    this.e = office_door_set();
+    this.transform = createSprite(80, 120, 155, 200);
+    this.transform.shapeColor = color(255,0);
+
+    this.door = office_door_set();
+    talktaive[8] = true;
   }
 
   draw() {
     super.draw();
     drawSprite(this.s);
+    office_door(this.door);
     if (!file[2]) playerSprite.overlap(this.s, this.talkable); //if we have the key, we cannot talk to her.
 
     drawSprite(this.NPC);
     drawSprite(this.NPC2);
 
-    office_door(this.e);
+    drawSprite(this.transform);
+    if (file[2]) playerSprite.overlap(this.transform, function a(){ //This is a sprite, if we have key are overlap, it will jump to Boss office
+      adventureManager.changeState("Boss_Office");
+      playerSprite.position.x = 1200;
+    } );
+
+    if (front_index == 3 && !talktaive[8]) groupIndex = 3; //if the first NPC is compelte.
+    if (front_index == 4 && talktaive[8]) groupIndex = 4; //if the second NPC is compelte.
+    if (talktaive[8]) playerSprite.overlap(this.NPC, this.talkable2);
+    else if (!talktaive[8] && front_index != 0) playerSprite.overlap(this.NPC2, this.talkable2);
   }
 
-  talkable() {
+  talkable() { //Old function like the Office_Room, See above.
     clickables[0].visible = true;
     clickables[0].onPress = clickableButtonPressed;
     switch (index) {
@@ -830,6 +894,44 @@ class Front_room extends PNGRoom { //Old function like the Office_Room, See abov
         break;
     }
   }
+
+  talkable2() { //SEE ABOVE!!!
+    content.ChangeToState('Front');
+    let conversation = content.GroupContent(groupIndex);
+    if (ina < conversation.length) {
+      clickables[0].visible = true;
+      drawtextbox(conversation[ina]);
+      clickables[0].onPress = function temp() {
+        ina++;
+      }
+    }
+    else {
+      if (groupIndex == 0) {
+        drawtextbox(''); //draw an empty rect, just like the text box. (TESTING)
+        clickables[19].visible = true;
+        clickables[19].onPress = function temp() {
+          groupIndex = 1;
+          ina = 0;
+          Respect +=2;
+        } 
+        clickables[20].visible = true;
+        clickables[20].onPress = function temp() {
+          groupIndex = 2;
+          ina = 0;
+          //Not become Enemy.
+        }
+      } else if (groupIndex == 2 || groupIndex == 4) { //drop the text box
+        talktaive[8] = false;
+        front_index = 0;
+      } else if (groupIndex == 1) { //Accept, go to other.
+        talktaive[8] = false;
+        front_index = 3;
+      } else if (groupIndex == 3) { //Other NPC is complete
+        talktaive[8] = true;
+        front_index = 4;
+      }
+    }
+  }
 }
 
 class Boss_Room extends PNGRoom {
@@ -837,12 +939,21 @@ class Boss_Room extends PNGRoom {
     index = 0;
     this.NPC =createSprite(200, height/2, 80, 80);
     this.NPC.addAnimation('regular', NPC[0]);
+
+    this.transform = createSprite(1270, 100, 30, 200);
+    this.transform.shapeColor = color(255,0);
   }
 
   draw() {
     super.draw();
     drawSprite(this.NPC);
     playerSprite.overlap(this.NPC, this.talkable);
+
+    drawSprite(this.transform);
+    playerSprite.overlap(this.transform, function a() {
+      adventureManager.changeState("Front_door");
+      playerSprite.position.x = 230;
+    })
   }
 
   talkable() { //SEE OFFICE_ROOM

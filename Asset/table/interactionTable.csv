@@ -33,5 +33,4 @@ L3_MAZE4,,,,,S,L3
 L3_MAZE4,,,,,W,Front_door
 Front_door,,,,,S,L3_MAZE1
 Front_door,,,,,E,L3_MAZE4
-Front_door,,,,,W,Boss_Office
 Boss_Office,,,,,E,Front_door
