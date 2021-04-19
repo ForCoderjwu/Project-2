@@ -88,7 +88,7 @@ function setup() {
 
 //Testing function
   // adventureManager.changeState("L2"); 
-  adventureManager.changeState("L3_MAZE3");
+  // adventureManager.changeState("L3_MAZE3");
 }
 
 function draw() {
